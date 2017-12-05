@@ -7,7 +7,7 @@ namespace AdventOfCode2017
     {
         public int Solve()
         {
-            var passphrases = Input.Split(new[] { System.Environment.NewLine }, System.StringSplitOptions.None);
+            var passphrases = Input.SplitByNewLines();
 
             var wordsInPassphrases = passphrases.Select(phrase => phrase.Split(' '));
 

@@ -42,6 +42,7 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Day5Part1.cs" />
     <Compile Include="Day4Part2.cs" />
     <Compile Include="Day4Part1.cs" />
     <Compile Include="Day2Part1.cs" />
@@ -50,6 +51,7 @@
     <Compile Include="Day1Part1.cs" />
     <Compile Include="Day3Part1.cs" />
     <Compile Include="Day3Part2.cs" />
+    <Compile Include="Extensions.cs" />
     <Compile Include="ISolution.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
