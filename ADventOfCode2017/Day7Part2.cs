@@ -5,19 +5,62 @@ using System.Text.RegularExpressions;
 
 namespace AdventOfCode2017
 {
-    public class Day7Part1 : ISolution
+    public class Day7Part2 : ISolution
     {
         public int Solve()
         {
             var towers = Input.SplitByNewLines().Select(line => new RecursiveTower(line)).ToArray();
 
-            // Find the tower that has noone supporting it
             var unsupportedTowers = towers.Where(tower =>
             !towers.Any(supportingTower => supportingTower.SupportedTowerNames.Contains(tower.Name)));
+            var candidateTower = unsupportedTowers.Single();
+            int[] previousWeights = new int[0];
 
-            Console.WriteLine(unsupportedTowers.Single().Name);
-            return 42;
+            // Find the unevenly weighted tower by following up the tree
+            while (true)
+            {
+                var supportedTowers = candidateTower.SupportedTowerNames.Select(name => towers.Single(t => t.Name == name)).ToArray();
+
+                if (supportedTowers.Length == 0)
+                {
+                    // This must be the culprit...
+                    Console.WriteLine(candidateTower.Name); // not done yet
+                    return 42;
+                }
+                var weights = supportedTowers.Select(t => FindWeight(t, towers)).ToArray();
+                var wrongWeight = OddOneOut(weights);
+
+                if (wrongWeight == null)
+                {
+                    // The candidate tower itself must be wrong
+                    Console.WriteLine(candidateTower.Name); // not done yet
+
+                    var candidateTowerWeight = FindWeight(candidateTower, towers);
+                    var candidateTowerCorrectWeight = previousWeights.First(w => w != candidateTowerWeight);
+
+                    return candidateTowerCorrectWeight - weights.Sum();
+                }
+
+                candidateTower = supportedTowers[Array.IndexOf(weights, wrongWeight)];
+                previousWeights = (int[])weights.Clone();
+            }
+
         }
+
+        private int FindWeight(RecursiveTower tower, IEnumerable<RecursiveTower> allTowers)
+        {
+            return tower.Weight + tower.SupportedTowerNames.Sum(t => FindWeight(allTowers.Single(tw => tw.Name == t), allTowers));
+        }
+
+        private int? OddOneOut(int[] options)
+        {
+            var common = options.GroupBy(opt => opt).OrderByDescending(group => group.Count()).First().Key;
+            var oddOneOut = options.SingleOrDefault(opt => opt != common);
+
+            return oddOneOut == 0 ? (int?)null : oddOneOut;
+        }
+
+
 
         private static string TestInput = @"pbga (66)
 xhth (57)
@@ -1454,4 +1497,32 @@ wqokqz (50)
 xufneyr (153)";
     }
 
+    public class RecursiveTower
+    {
+        public RecursiveTower(string noteLine)
+        {
+            var match = NoteParser.Match(noteLine);
+            Name = match.Groups["name"].Value;
+            Weight = int.Parse(match.Groups["weight"].Value);
+            if (match.Groups["held"].Success)
+            {
+                SupportedTowerNames = match.Groups["held"].Value.Split(',').Select(name => name.Trim()).ToArray();
+            }
+            else
+            {
+                SupportedTowerNames = new string[0];
+            }
+        }
+        private static Regex NoteParser = new Regex(@"(?<name>\w+) \((?<weight>\d+)\)( -\> (?<held>[\w, ]+))?", RegexOptions.Compiled);
+
+        public string Name { get; private set; }
+        public int Weight { get; private set; }
+        public string[] SupportedTowerNames { get; private set; }
+
+        public override string ToString()
+        {
+            var supportedTowerNameString = string.Join(",", SupportedTowerNames);
+            return $"{Name} ({Weight} -> {supportedTowerNameString}";
+        }
+    }
 }
