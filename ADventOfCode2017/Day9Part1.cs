@@ -24,7 +24,7 @@ namespace AdventOfCode2017
                 {
                     inGarbage = false;
                 }
-                else if (chr == '<')
+                else if (!inGarbage && chr == '<')
                 {
                     inGarbage = true;
                 }
