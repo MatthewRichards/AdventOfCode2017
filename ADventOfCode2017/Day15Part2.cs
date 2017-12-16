@@ -31,7 +31,7 @@ namespace AdventOfCode2017
                 }
             }
 
-            return matches; // 279 too low but matches someone else's answer, so something funny may be going on
+            return matches;
 
         }
         
