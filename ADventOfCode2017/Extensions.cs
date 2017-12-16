@@ -11,6 +11,20 @@ namespace AdventOfCode2017
     }, System.StringSplitOptions.None);
         }
 
+        public static string ToBitString(this int value)
+        {
+            var bitString = new List<char>();
+
+            while (value > 0)
+            {
+                bitString.Add((value % 2 == 0) ? '0' : '1');
+                value /= 2;
+            }
+            bitString.Reverse();
+            return string.Join("", bitString.ToArray());
+        }
+
+
         public static string CalculateKnotHash(this string input)
         {
             var list = Enumerable.Range(0, 256).ToArray();
@@ -62,6 +76,7 @@ namespace AdventOfCode2017
                 list[oneEnd] = list[otherEnd];
                 list[otherEnd] = swap;
             }
+
         }
     }
 }
