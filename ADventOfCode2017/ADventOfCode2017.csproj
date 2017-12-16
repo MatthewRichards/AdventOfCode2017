@@ -46,11 +46,11 @@
     <Compile Include="Day11Part1.cs" />
     <Compile Include="Day10Part2.cs" />
     <Compile Include="Day10Part1.cs" />
-    <Compile Include="Day13Part2 - Copy.cs" />
     <Compile Include="Day13Part2.cs" />
     <Compile Include="Day13Part1.cs" />
     <Compile Include="Day12Part2.cs" />
     <Compile Include="Day12Part1.cs" />
+    <Compile Include="Day14Part2.cs" />
     <Compile Include="Day14Part1.cs" />
     <Compile Include="Day9Part2.cs" />
     <Compile Include="Day9Part1.cs" />
