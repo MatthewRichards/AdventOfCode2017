@@ -9,7 +9,7 @@ namespace AdventOfCode2017
     {
       public int Solve()
       {
-        var moves = Input.Split(',');
+        var moves = Input.Split(',').Take(500);
         var programs = "abcdefghijklmnop";
 
         foreach (var move in moves)
@@ -49,11 +49,13 @@ namespace AdventOfCode2017
             programs = new string(programsAsArray);
             break;
           }
-        }
+
+        Console.Out.WriteLine($"{move}: {programs}");
+      }
 
 
 
-        Console.Out.WriteLine(programs);
+      Console.Out.WriteLine(programs);
         return 42;
       }
 
