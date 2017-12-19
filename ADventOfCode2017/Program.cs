@@ -6,7 +6,7 @@ namespace AdventOfCode2017
     {
         static void Main(string[] args)
         {
-            var solver = new Day17Part1();
+            var solver = new Day17Part2();
 
             int answer = solver.Solve();
 
