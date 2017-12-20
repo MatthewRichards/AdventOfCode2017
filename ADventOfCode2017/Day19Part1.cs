@@ -22,15 +22,18 @@ namespace AdventOfCode2017
       int currentRow = 0;
       MazeDirection direction = MazeDirection.Down;
       var lettersFound = new List<char>();
+      int steps = 0;
 
       while (true)
       {
         if (currentRow < 0 || currentRow >= map.Length || currentColumn < 0 || currentColumn >= map[currentRow].Length)
         {
           // We've run off the edge - hopefully we're done.
-          Console.WriteLine($"Solution: {string.Join("", lettersFound.ToArray())}");
-          return 42;
+          Console.WriteLine($"Off the edge! Solution: {string.Join("", lettersFound.ToArray())}");
+          return steps;
         }
+
+        steps++;
 
         if (map[currentRow][currentColumn] >= 'A' && map[currentRow][currentColumn] <= 'Z')
         {
@@ -40,26 +43,18 @@ namespace AdventOfCode2017
           if (lettersFound.Contains(foundLetter))
           {
             // Uh oh, we assume this is wrong; what shall we try doing?
-            Console.WriteLine($"Oops, found {foundLetter} again; reverse direction!");
-            switch (direction)
-            {
-              case MazeDirection.Up:
-                direction = MazeDirection.Down;
-                break;
-              case MazeDirection.Down:
-                direction = MazeDirection.Up;
-                break;
-                case MazeDirection.Left:
-                direction=MazeDirection.Right;
-                break;
-                case MazeDirection.Right:
-                direction = MazeDirection.Left;
-                break;
-            }
+            Console.WriteLine($"Oo, found {foundLetter} again; stop here");
+            return steps;
           }
           else
           {
             lettersFound.Add(foundLetter);
+
+            var allLetters = string.Join("", lettersFound.ToArray());
+            if (allLetters == "DWNBGECOMY")
+            {
+              return steps;
+            }
           }
         }
 
