@@ -51,7 +51,7 @@ namespace AdventOfCode2017
 
       for (int i = 0; i < foolishLargeNumber; i++)
       {
-        if (i % 1000 == 0)
+        if (i % 10000 == 0)
         {
           Console.WriteLine($"Done iteration {i}: Particles left {particles.Count}");
         }
