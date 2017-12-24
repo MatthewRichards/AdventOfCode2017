@@ -13,7 +13,7 @@ namespace AdventOfCode2017
       var ruleBook = new Day21RuleBook(Input);
 
 
-      for (int i = 0; i < 5; i++)
+      for (int i = 0; i < 18; i++)
 
       {
         Console.WriteLine(pattern);
