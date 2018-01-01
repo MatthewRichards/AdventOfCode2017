@@ -53,6 +53,7 @@
     <Compile Include="Day24Part1.cs" />
     <Compile Include="Day23Part2.cs" />
     <Compile Include="Day23Part1.cs" />
+    <Compile Include="Day25Part1.cs" />
     <Compile Include="Day22Part2.cs" />
     <Compile Include="Day22Part1.cs" />
     <Compile Include="Day21Part1.cs" />
